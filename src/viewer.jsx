@@ -24,7 +24,7 @@ export default function Viewer() {
   // Este se activa cuando la escena ya está lista
 useEffect(() => {
   if (sceneState.scene) {
-    loadModel("/models/Llavero1.glb", sceneState, setSceneState);
+    loadModel("/models/LlaveroFull2.glb", sceneState, setSceneState);
   }
 }, [sceneState.scene]);
 

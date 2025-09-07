@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const models = [
-  { name: "Llavero1", label: "Llavero 1", icon: faCube, color: "blue" },
+  { name: "LlaveroFull2", label: "Llavero 1", icon: faCube, color: "blue" },
   { name: "LlaveroCircular", label: "Llavero 2", icon: faCircle, color: "green" },
   { name: "Taza", label: "Taza", icon: faMugHot, color: "blue" },
   { name: "Botella1", label: "Botella", icon: faBottleWater, color: "green" },

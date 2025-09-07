@@ -50,6 +50,7 @@ export function initScene(canvasRef, setSceneState) {
 export function loadModel(path, sceneState, setSceneState) {
   if (!sceneState.scene || !sceneState.camera || sceneState.isLoading) return;
 
+  setSceneState((prev) => ({ ...prev, isLoading: true }));
   const loader = new GLTFLoader();
   loader.load(
     path,
