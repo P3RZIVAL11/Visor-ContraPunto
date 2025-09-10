@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { initScene, loadModel, applyTexture } from "./viewerLogic";
-import ModelButtonGroup from "./ModelButtonGroup";
+import ModelButtonGroup from "./Components/ModelButtonGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle, faRedo, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import  Toast from "./Components/Toast"
 
 import './styles/visor.css';
 
@@ -17,17 +18,26 @@ export default function Viewer() {
     isLoading: false,
   });
 
+  const [toastMessage, setToastMessage] = useState("");
+
   useEffect(() => {
     const cleanup = initScene(canvasRef, setSceneState);
     return cleanup;
+    
   }, []);
   // Este se activa cuando la escena ya está lista
 useEffect(() => {
   if (sceneState.scene) {
-    loadModel("/models/LlaveroFull2.glb", sceneState, setSceneState);
+    loadModel("/models/LlaveroFull2.glb", sceneState, setSceneState, setToastMessage);
   }
 }, [sceneState.scene]);
 
+useEffect(() => {
+  if (toastMessage) {
+    const timer = setTimeout(() => setToastMessage(null), 2000);
+    return () => clearTimeout(timer);
+  }
+}, [toastMessage])
   return (
     <div>
        <div
@@ -36,7 +46,8 @@ useEffect(() => {
         <ModelButtonGroup
           sceneState={sceneState}
           setSceneState={setSceneState}
-          loadModel={loadModel}
+          loadModel={loadModel}        
+          setToastMessage={setToastMessage}
         />
       </div>
 
@@ -59,7 +70,14 @@ useEffect(() => {
         onChange={(e) => applyTexture(e, sceneState)}
       />
 
-  
+      {/* Toast */}
+      {toastMessage && (
+      <Toast
+        message={toastMessage.message}
+        type={toastMessage.type}
+        onClose={() => setToastMessage(null)}
+      />
+    )}
       <canvas ref={canvasRef} id="viewer" style={{ width: "100%", height: "100vh", display: "block" }} />
     </div>
   );

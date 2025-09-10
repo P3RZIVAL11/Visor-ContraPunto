@@ -21,14 +21,14 @@ const models = [
   { name: "Mousepad", label: "Mousepad", icon: faComputerMouse, color: "green" },
 ];
 
-export default function ModelButtonGroup({ sceneState, setSceneState, loadModel }) {
+export default function ModelButtonGroup({ sceneState, setSceneState, loadModel, setToastMessage}) {
   return (
     <div className="model-button-group">
       {models.map(({ name, label, icon, color }) => (
         <button
             key={name}
             className={`model-button ${color}`}
-            onClick={() => loadModel(`/models/${name}.glb`, sceneState, setSceneState)}
+            onClick={() => loadModel(`/models/${name}.glb`, sceneState, setSceneState,setToastMessage)}
         >
           <FontAwesomeIcon icon={icon} />
           {label}

@@ -47,7 +47,7 @@ export function initScene(canvasRef, setSceneState) {
   };
 }
 
-export function loadModel(path, sceneState, setSceneState) {
+export function loadModel(path, sceneState, setSceneState,setToastMessage) {
   if (!sceneState.scene || !sceneState.camera || sceneState.isLoading) return;
 
   setSceneState((prev) => ({ ...prev, isLoading: true }));
@@ -77,11 +77,17 @@ export function loadModel(path, sceneState, setSceneState) {
       // Agregar modelo a la escena
       sceneState.scene.add(model);
       setSceneState((prev) => ({ ...prev, model, isLoading: false }));
+      setToastMessage({ message: "El modelo cargo correctamente", type: "success" });
+
+
     },
     undefined,
     (error) => {
       console.error("❌ Error al cargar el modelo:", error);
       setSceneState((prev) => ({ ...prev, isLoading: false }));
+      setToastMessage({ message: "❌ Error al cargar el modelo", type: "error" });
+;
+    
     }
   );
 }
