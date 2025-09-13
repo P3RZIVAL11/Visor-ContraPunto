@@ -15,7 +15,7 @@ const models = [
   { name: "LlaveroCircular", label: "Llavero 2", icon: faCircle, color: "green" },
   { name: "Taza", label: "Taza", icon: faMugHot, color: "blue" },
   { name: "Botella1", label: "Botella", icon: faBottleWater, color: "green" },
-  { name: "Camisa", label: "Camisa", icon: faShirt, color: "blue" },
+  { name: "CamisaN", label: "Camisa", icon: faShirt, color: "blue" },
   { name: "Hoodie", label: "Hoodie", icon: faTshirt, color: "green" },
   { name: "Gorra", label: "Gorra", icon: faHatCowboy, color: "blue" },
   { name: "Mousepad", label: "Mousepad", icon: faComputerMouse, color: "green" },

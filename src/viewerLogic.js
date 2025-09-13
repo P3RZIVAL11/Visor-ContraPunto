@@ -26,6 +26,10 @@ export function initScene(canvasRef, setSceneState) {
   light2.position.set(5, 10, 7.5);
   scene.add(light2);
 
+  /*const light3 = new THREE.DirectionalLight(0x161DF1, 1);
+  light3.position.set(10, 10, 10);
+  scene.add(light3);*/
+
   const onResize = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -77,9 +81,6 @@ export function loadModel(path, sceneState, setSceneState,setToastMessage) {
       // Agregar modelo a la escena
       sceneState.scene.add(model);
       setSceneState((prev) => ({ ...prev, model, isLoading: false }));
-      setToastMessage({ message: "El modelo cargo correctamente", type: "success" });
-
-
     },
     undefined,
     (error) => {
@@ -93,27 +94,38 @@ export function loadModel(path, sceneState, setSceneState,setToastMessage) {
 }
 
 
-export function applyTexture(e, sceneState) {
+export function applyTexture(e, sceneState,setToastMessage) {
+  let applied = false;
   const file = e.target.files[0];
   if (!file || !sceneState.model) return;
-
+  console.log("FILE: "+file)
   const url = URL.createObjectURL(file);
+  console.log("URL: "+url)
   const texture = new THREE.TextureLoader().load(url, () => {
+
     texture.flipY = false; 
     sceneState.model.traverse((child) => {
       if (child.isMesh) {
+        console.log("NAME: "+child.name)
         const materials = Array.isArray(child.material)
           ? child.material
           : [child.material];
-
         materials.forEach((mat) => {
+          console.log("Material:", mat.name, "Tipo:", mat.type);
           if (mat.name === "Material_Imagen") {
             mat.map = texture;
             mat.transparent = true;
-            mat.needsUpdate = true;
+            mat.needsUpdate = true;            
+            applied=true
           }
         });
       }
     });
-  });
-}
+    console.log(applied)
+    applied ? setToastMessage({ message: "Exito al aplicar la Textura", type: "success" }) : setToastMessage({ message: "Error, elija la imagen nuevamente", type: "error" });
+  
+  });}
+
+  export function rebootModel (path, sceneState, setSceneState,setToastMessage){
+
+  }

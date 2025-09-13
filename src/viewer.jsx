@@ -16,7 +16,7 @@ export default function Viewer() {
     controls: null,
     model: null,
     isLoading: false,
-  });
+      });
 
   const [toastMessage, setToastMessage] = useState("");
 
@@ -44,7 +44,7 @@ useEffect(() => {
         className="model-button-group "
       >
         <ModelButtonGroup
-          sceneState={sceneState}
+                  sceneState={sceneState}
           setSceneState={setSceneState}
           loadModel={loadModel}        
           setToastMessage={setToastMessage}
@@ -64,10 +64,10 @@ useEffect(() => {
       </div>
       <input
         type="file"
-        accept="image/*"
+        accept="image/*, .jpg, .png, .jpeg"
         className="image-upload-container"
         style={{ bottom: "20px", left: "20px", zIndex: 10 }}
-        onChange={(e) => applyTexture(e, sceneState)}
+        onChange={(e) => applyTexture(e, sceneState, setToastMessage)}
       />
 
       {/* Toast */}
