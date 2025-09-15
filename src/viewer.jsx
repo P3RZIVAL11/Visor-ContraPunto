@@ -16,6 +16,7 @@ export default function Viewer() {
     controls: null,
     model: null,
     isLoading: false,
+    currentModelPath:null,
       });
 
   const [toastMessage, setToastMessage] = useState("");
@@ -55,7 +56,15 @@ useEffect(() => {
         <button className="float-button" title="Ayuda">
           <FontAwesomeIcon icon={faQuestionCircle} />
         </button>
-        <button className="float-button" title="Reiniciar">
+        <button className="float-button" title="Reiniciar"
+           onClick={() => {
+            if (sceneState.currentModelPath) {
+              loadModel(sceneState.currentModelPath, sceneState, setSceneState, setToastMessage);
+            } else {
+              setToastMessage({ message: "No hay modelo para reiniciar", type: "warning" });
+            }
+          }}
+          >
           <FontAwesomeIcon icon={faRedo} />
         </button>
         <button className="float-button" title="Retornar">

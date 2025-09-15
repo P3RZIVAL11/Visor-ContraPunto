@@ -60,9 +60,11 @@ export function loadModel(path, sceneState, setSceneState,setToastMessage) {
     path,
     (gltf) => {
       if (sceneState.model) sceneState.scene.remove(sceneState.model);
-      setSceneState((prev) => ({ ...prev, isLoading: true }));
+      setSceneState((prev) => ({ ...prev, isLoading: true, currentModelPath: path }));
       const model = gltf.scene;
 
+      sceneState.controls.target.set(0, 0, 0);
+      sceneState.controls.update();
       // Calcular el bounding box
       const box = new THREE.Box3().setFromObject(model);
       const center = box.getCenter(new THREE.Vector3());
@@ -125,7 +127,3 @@ export function applyTexture(e, sceneState,setToastMessage) {
     applied ? setToastMessage({ message: "Exito al aplicar la Textura", type: "success" }) : setToastMessage({ message: "Error, elija la imagen nuevamente", type: "error" });
   
   });}
-
-  export function rebootModel (path, sceneState, setSceneState,setToastMessage){
-
-  }
