@@ -36,7 +36,7 @@ export default App*/
 import Viewer from "./viewer";
 
 function App() {
-  return <Viewer />;
+  return <Viewer/>;
 }
 
 export default App;

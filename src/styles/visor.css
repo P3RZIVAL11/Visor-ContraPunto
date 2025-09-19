@@ -99,4 +99,28 @@
   .float-button:hover {
     background-color: #1a8fc2;
   }
+
+  .model-button-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .variant-indicator {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 14px;
+    height: 14px;
+    background-color: black;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .model-button-wrapper:hover .variant-indicator {
+    opacity: 1;
+  }
+  
   

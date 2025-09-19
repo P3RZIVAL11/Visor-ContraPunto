@@ -41,11 +41,9 @@ useEffect(() => {
 }, [toastMessage])
   return (
     <div>
-       <div
-        className="model-button-group "
-      >
+      <div className="model-button-group ">
         <ModelButtonGroup
-                  sceneState={sceneState}
+          sceneState={sceneState}
           setSceneState={setSceneState}
           loadModel={loadModel}        
           setToastMessage={setToastMessage}
