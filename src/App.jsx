@@ -35,8 +35,29 @@ function App() {
 export default App*/
 import Viewer from "./viewer";
 
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+
+import Servicios from "./Servicios"
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+        <Viewer/>
+    ),
+  },
+  { 
+    path: "/servicios", 
+    element: (
+        <Servicios/>
+    ) 
+  },
+])
 function App() {
-  return <Viewer/>;
+  return <RouterProvider router={router} />;
 }
 
 export default App;

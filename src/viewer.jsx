@@ -4,6 +4,9 @@ import ModelButtonGroup from "./Components/ModelButtonGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle, faRedo, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import  Toast from "./Components/Toast"
+import  Modal from "./Components/Modal"
+
+import { Link, useLocation } from 'react-router-dom';
 
 import './styles/visor.css';
 
@@ -20,24 +23,26 @@ export default function Viewer() {
       });
 
   const [toastMessage, setToastMessage] = useState("");
-
+  const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
   useEffect(() => {
     const cleanup = initScene(canvasRef, setSceneState);
     return cleanup;
     
   }, []);
   // Este se activa cuando la escena ya está lista
-useEffect(() => {
-  if (sceneState.scene) {
-    loadModel("/models/LlaveroFull2.glb", sceneState, setSceneState, setToastMessage);
-  }
-}, [sceneState.scene]);
+  useEffect(() => {
+    if (sceneState.scene) {
+      loadModel("/models/LlaveroFull2.glb", sceneState, setSceneState, setToastMessage);
+    }
+  }, [sceneState.scene]);
 
-useEffect(() => {
-  if (toastMessage) {
-    const timer = setTimeout(() => setToastMessage(null), 2000);
-    return () => clearTimeout(timer);
-  }
+  useEffect(() => {
+    if (toastMessage) {
+      const timer = setTimeout(() => setToastMessage(null), 2000);
+      return () => clearTimeout(timer);
+    }
 }, [toastMessage])
   return (
     <div>
@@ -51,9 +56,13 @@ useEffect(() => {
       </div>
 
       <div className="float-button-group">
-        <button className="float-button" title="Ayuda">
-          <FontAwesomeIcon icon={faQuestionCircle} />
-        </button>
+      <button 
+        className="float-button" 
+        title="Ayuda" 
+        onClick={() => setIsHelpOpen(true)}
+      >
+        <FontAwesomeIcon icon={faQuestionCircle} />
+      </button>
         <button className="float-button" title="Reiniciar"
            onClick={() => {
             if (sceneState.currentModelPath) {
@@ -65,10 +74,29 @@ useEffect(() => {
           >
           <FontAwesomeIcon icon={faRedo} />
         </button>
-        <button className="float-button" title="Retornar">
-          <FontAwesomeIcon icon={faArrowLeft} />
+        <button className="float-button" title="Retornar" onClick={() => setIsMenuOpen(false)}>
+          <Link 
+            to="/servicios" 
+            className={location.pathname === '/servicios' ? 'active' : ''}
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </Link>
         </button>
+
       </div>
+      <Modal isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)}>
+        <h2>¿Cómo usar el visor?</h2>
+        <ul>
+          <li>🖱️ Usa el mouse para rotar, acercar o mover el modelo.</li>
+          <li>🖼️ Al elegir una imagen, se aplicará automáticamente al modelo.</li>
+          <li>🔘 Algunos modelos tienen variantes: haz clic en el botón negro en la esquina superior derecha.</li>
+          <li>⬅️ El botón “Retornar” te lleva al menú anterior.</li>
+          <li>🔄 El botón “Reiniciar” restablece el modelo a su estado original.</li>
+        </ul>
+      </Modal>
+
+
       <input
         type="file"
         accept="image/*, .jpg, .png, .jpeg"
