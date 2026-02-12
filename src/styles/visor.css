@@ -70,7 +70,7 @@
   }
 
   /* === Botones flotantes (superior derecha) === */
-.float-button-group {
+/*.float-button-group {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -78,7 +78,7 @@
     flex-direction: column;
     gap: 12px;
     z-index: 20;
-  }
+  }*/
   
   .float-button {
     width: 44px;
@@ -122,5 +122,36 @@
   .model-button-wrapper:hover .variant-indicator {
     opacity: 1;
   }
-  
-  
+
+
+.header-img {
+  width: auto; /* ajusta según el tamaño del logo */
+  z-index: 1000;
+  animation: slideUp 0.8s ease-out, pulse 3s infinite;
+}
+
+.logo-container {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ← centra el logo y los botones en columna */
+  gap: 1px;
+}
+
+
+.header-img img {
+  width: 220px;
+  height: auto;
+  object-fit: contain;
+}
+
+.float-button-group {
+  position: relative; /* ← importante para z-index */
+  z-index: 1001;       /* ← más alto que el logo */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

@@ -45,7 +45,7 @@ export default function Viewer() {
     }
 }, [toastMessage])
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <div className="model-button-group ">
         <ModelButtonGroup
           sceneState={sceneState}
@@ -55,14 +55,21 @@ export default function Viewer() {
         />
       </div>
 
+      <div className="logo-container">
+      <div className="header-img">
+          <img src="/src/assets/images/logo_contra.png" alt="Contrapunto Creativos" />
+          
+      </div>
+
       <div className="float-button-group">
-      <button 
-        className="float-button" 
-        title="Ayuda" 
-        onClick={() => setIsHelpOpen(true)}
-      >
-        <FontAwesomeIcon icon={faQuestionCircle} />
-      </button>
+        <button 
+          className="float-button" 
+          title="Ayuda" 
+          onClick={() => setIsHelpOpen(true)}
+          >
+          <FontAwesomeIcon icon={faQuestionCircle} />
+        </button>
+      
         <button className="float-button" title="Reiniciar"
            onClick={() => {
             if (sceneState.currentModelPath) {
@@ -74,6 +81,7 @@ export default function Viewer() {
           >
           <FontAwesomeIcon icon={faRedo} />
         </button>
+
         <button className="float-button" title="Retornar" onClick={() => setIsMenuOpen(false)}>
           <Link 
             to="/servicios" 
@@ -84,6 +92,7 @@ export default function Viewer() {
           </Link>
         </button>
 
+      </div>
       </div>
       <Modal isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)}>
         <h2>¿Cómo usar el visor?</h2>
